@@ -5,6 +5,22 @@
     <title>Static Website Example</title>
 </head>
 <body>
-    <h1>Static Website example again</h1>
+    <h1>Static Website example - <b id="name">...</b></h1>
 </body>
+<script>
+    (async function(){
+        let { text } = await(await fetch(`/api`, {
+            headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        })).json().then((suc, err)=>{
+            if(err){
+                console.log(err);
+            }
+            console.log(suc.text);
+            document.querySelector("#name").textContent = suc.text;
+        });
+    }())
+</script>
 </html>
